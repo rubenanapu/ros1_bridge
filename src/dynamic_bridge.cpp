@@ -251,6 +251,12 @@ void update_bridge(
         bridge.ros2_type_name, topic_name, 10,
         bridge.ros1_type_name, topic_name, 10);
     } catch (std::runtime_error & e) {
+
+      if (topic_name == "/rosout"){
+        // https://github.com/ros2/ros1_bridge/issues/159#issuecomment-483635518
+        continue;
+      }
+
       fprintf(
         stderr,
         "failed to create 2to1 bridge for topic '%s' "
